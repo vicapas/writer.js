@@ -4,29 +4,50 @@
 * @author: kamarena
 */
 
-window.onload = iniciarWriter();
+window.onload = iniciarWriter(); // inicia js cuando la página está cargada
 
+
+// se ocupa de los procesos de carga del js
 function iniciarWriter() {
-  var elemento = document.getElementsByClassName('writer');
 
-  for (var i = 0; i < elemento.length; i++) {
-    var pause = elemento[i].getAttribute('pause');
-    if (pause == null) pause = 100;
-    escribir(elemento[i], pause)
+  // obtiene los elementos de la página que tienen la clase writer
+  var elementos = document.getElementsByClassName('writer');
+
+
+  // itera los elementos para modificar el comportamiento de cada uno de ellos
+  for (var i = 0; i < elementos.length; i++) {
+    escribir(elementos[i]); // ejecuta la animación de escritura
   }
+
 }
 
-function escribir(elemento, pause) {
-  var texto = elemento.innerHTML;
+
+// se ocupa de darle el efecto al texto de estar escribiendo en tiempo real
+function escribir(elemento) {
+
+  var interval = elemento.getAttribute('interval'); // atributo interval
+  var delay = elemento.getAttribute('delay'); // atributo delay
+
+  if (interval == null) interval = 100; // por defecto pause vale 100sm
+  if (delay == null) delay = 0; // por defecto delay vale 0ms
+
+  var texto = elemento.innerHTML; // obtiene el texto que contiene
   elemento.innerHTML = ''; // se borra al iniciarWriter
-  var posicion = 0;
-  var escritura = setInterval(function() {
-    if (posicion == texto.length) {
-      elemento.innerHTML = texto;
-      clearInterval(escritura);
-    } else {
-      elemento.innerHTML = texto.substring(0, posicion) + '|';
-      posicion++;
-    }
-  }, pause);
+  var posicion = 0; // posición inicial del puntero
+
+  // se establece retardo según el atributo
+  setTimeout(function() {
+    // se inicia el intervalo para ir añadiendo las letras
+    var escritura = setInterval(function() {
+      if (posicion < texto.length) {
+        // se introduce la parte de la cadena que corresponde en cada posición
+        elemento.innerHTML = texto.substring(0, posicion) + '|';
+        posicion++;
+      } else {
+        elemento.innerHTML = texto;
+        clearInterval(escritura); // se sale del intervalo por haber llegado al fin
+      }
+    }, interval);
+  }, delay);
+
 }
