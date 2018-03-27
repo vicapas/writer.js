@@ -1,5 +1,5 @@
 # writer.js
-####Funcionalidad para darle un efecto de escritura en tiempo real al cargar la página.
+#### Funcionalidad para darle un efecto de escritura en tiempo real al cargar la página.
 
 Para darle el efecto necesario a un texto simplemente se necesita añadirle la clase *writer* al contenedor. Existe la posibilidad de variar la velocidad de escritura mediante el atributo *pause*, el cual se refiere a la pausa entre una pulsación y la siguiente. Si no se especifica el atributo *pause* tendrá por defecto el valor de 100ms.
 También se puede retrasar el inicio del efecto añadiendo el atributo *delay* seguido del número en milisegundos que se quiera retrasar.
